@@ -1,0 +1,452 @@
+/* SIGPAT-OTIC - estilos de la aplicación */
+/*
+ * Paleta institucional CAEN-EPG: ÚNICO lugar con HEX de marca en la web
+ * (PDF, Word y correos usan app/Config/paleta.php con los mismos valores).
+ * Colores medidos en caen.edu.pe (⚠️ confirmar con el manual de identidad).
+ * El dorado no alcanza AA como texto sobre blanco (2.1:1): solo sobre guinda o como fondo.
+ * --caen-rojo es decorativo: las alertas y errores siguen con --bs-danger.
+ */
+:root {
+    --caen-guinda: #7a1334;
+    --caen-guinda-rgb: 122, 19, 52;
+    --caen-guinda-oscuro: #5a0e26;
+    --caen-guinda-oscuro-rgb: 90, 14, 38;
+    --caen-rojo: #c10e36;
+    --caen-guinda-claro: #caa1ae;
+    --caen-dorado: #d9ad4f;
+    --caen-dorado-rgb: 217, 173, 79;
+    --caen-fondo: #f2f2f2;
+    --caen-superficie: #ffffff;
+    --caen-texto: #1a1a1a;
+    --caen-texto-rgb: 26, 26, 26;
+
+    --sigpat-primario: var(--caen-guinda);
+    --sigpat-primario-oscuro: var(--caen-guinda-oscuro);
+    --sigpat-acento: var(--caen-dorado);
+    --sigpat-sidebar-ancho: 260px;
+
+    /* Bootstrap 5.3: .text-primary, .bg-primary, .text-bg-primary, .border-primary y
+       .link-primary se calculan con --bs-primary-rgb, así que heredan la marca desde aquí. */
+    --bs-primary: var(--caen-guinda);
+    --bs-primary-rgb: var(--caen-guinda-rgb);
+    --bs-primary-text-emphasis: #310815;
+    --bs-primary-bg-subtle: #e4d0d6;
+    --bs-primary-border-subtle: var(--caen-guinda-claro);
+
+    /* Series de gráficos (Chart.js los lee con getComputedStyle; las leyendas usan .serie-N).
+       Dorado y guinda claro quedan < 3:1 sobre blanco: la leyenda muestra los valores y hay tabla de datos. */
+    --grafico-serie-1: var(--caen-guinda);
+    --grafico-serie-2: var(--caen-dorado);
+    --grafico-serie-3: var(--caen-guinda-claro);
+    --bs-link-color: var(--caen-guinda);
+    --bs-link-color-rgb: var(--caen-guinda-rgb);
+    --bs-link-hover-color: var(--caen-guinda-oscuro);
+    --bs-link-hover-color-rgb: var(--caen-guinda-oscuro-rgb);
+    --bs-focus-ring-color: rgba(var(--caen-guinda-rgb), 0.25);
+    --bs-body-color: var(--caen-texto);
+    --bs-body-color-rgb: var(--caen-texto-rgb);
+}
+
+body {
+    background-color: var(--caen-fondo);
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+    border-color: rgba(var(--caen-guinda-rgb), 0.5);
+    box-shadow: 0 0 0 0.25rem rgba(var(--caen-guinda-rgb), 0.25);
+}
+
+.form-check-input:checked {
+    background-color: var(--caen-guinda);
+    border-color: var(--caen-guinda);
+}
+
+.pagination {
+    --bs-pagination-color: var(--caen-guinda);
+    --bs-pagination-hover-color: var(--caen-guinda-oscuro);
+    --bs-pagination-focus-color: var(--caen-guinda-oscuro);
+    --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(var(--caen-guinda-rgb), 0.25);
+    --bs-pagination-active-bg: var(--caen-guinda);
+    --bs-pagination-active-border-color: var(--caen-guinda);
+}
+
+/* Componentes de Bootstrap que traen #0d6efd compilado en lugar de var(--bs-primary). */
+.progress,
+.progress-stacked {
+    --bs-progress-bar-bg: var(--caen-guinda);
+}
+
+.dropdown-menu {
+    --bs-dropdown-link-active-bg: var(--caen-guinda);
+}
+
+.list-group {
+    --bs-list-group-active-bg: var(--caen-guinda);
+    --bs-list-group-active-border-color: var(--caen-guinda);
+}
+
+.nav-pills {
+    --bs-nav-pills-link-active-bg: var(--caen-guinda);
+}
+
+.nav {
+    --bs-nav-link-color: var(--caen-guinda);
+    --bs-nav-link-hover-color: var(--caen-guinda-oscuro);
+}
+
+/* ---------- Login / errores ---------- */
+.auth-body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--sigpat-primario-oscuro) 0%, var(--sigpat-primario) 60%, var(--caen-rojo) 100%);
+}
+
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 1rem;
+}
+
+.auth-card-wide {
+    max-width: 760px;
+}
+
+.auth-logo,
+.welcome-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--sigpat-primario);
+    color: var(--sigpat-acento);
+    font-size: 1.75rem;
+    flex-shrink: 0;
+}
+
+.error-code {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 1rem;
+}
+
+.btn-primary {
+    --bs-btn-bg: var(--sigpat-primario);
+    --bs-btn-border-color: var(--sigpat-primario);
+    --bs-btn-hover-bg: var(--sigpat-primario-oscuro);
+    --bs-btn-hover-border-color: var(--sigpat-primario-oscuro);
+    --bs-btn-active-bg: var(--sigpat-primario-oscuro);
+    --bs-btn-active-border-color: var(--sigpat-primario-oscuro);
+    --bs-btn-disabled-bg: var(--sigpat-primario);
+    --bs-btn-disabled-border-color: var(--sigpat-primario);
+    --bs-btn-focus-shadow-rgb: var(--caen-guinda-rgb);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--sigpat-primario);
+    --bs-btn-border-color: var(--sigpat-primario);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--sigpat-primario);
+    --bs-btn-hover-border-color: var(--sigpat-primario);
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--sigpat-primario-oscuro);
+    --bs-btn-active-border-color: var(--sigpat-primario-oscuro);
+    --bs-btn-disabled-color: var(--sigpat-primario);
+    --bs-btn-disabled-border-color: var(--sigpat-primario);
+    --bs-btn-focus-shadow-rgb: var(--caen-guinda-rgb);
+}
+
+/* ---------- Layout principal ---------- */
+.app-sidebar {
+    background: var(--sigpat-primario-oscuro);
+    color: #fff;
+}
+
+@media (min-width: 992px) {
+    /* Bootstrap fija "background-color: transparent !important" en .offcanvas-lg a partir de lg. */
+    .app-sidebar.offcanvas-lg {
+        background-color: var(--sigpat-primario-oscuro) !important;
+    }
+
+    .app-sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: var(--sigpat-sidebar-ancho);
+        overflow-y: auto;
+        z-index: 1030;
+    }
+
+    .app-main {
+        margin-left: var(--sigpat-sidebar-ancho);
+    }
+}
+
+@media (max-width: 991.98px) {
+    .app-sidebar.offcanvas-lg {
+        --bs-offcanvas-width: var(--sigpat-sidebar-ancho);
+        --bs-offcanvas-bg: var(--sigpat-primario-oscuro);
+        --bs-offcanvas-color: #fff;
+    }
+}
+
+.sidebar-brand {
+    padding: 1.1rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brand-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--sigpat-acento);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.sidebar-nav {
+    padding: 0.75rem 0.75rem 2rem;
+    width: 100%;
+}
+
+.sidebar-section {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.45);
+    padding: 1rem 0.75rem 0.4rem;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 0.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 0.925rem;
+}
+
+.sidebar-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.sidebar-link.active {
+    background: rgba(var(--caen-dorado-rgb), 0.18);
+    color: #fff;
+    box-shadow: inset 3px 0 0 var(--sigpat-acento);
+}
+
+.app-main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    min-height: 60px;
+}
+
+.avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--sigpat-primario);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+}
+
+.app-content {
+    flex: 1;
+    padding: 1.5rem;
+}
+
+.app-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--bs-border-color);
+    background: var(--bs-body-bg);
+}
+
+.welcome-card {
+    border-left: 4px solid var(--sigpat-acento) !important;
+}
+
+.table > thead th {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--bs-secondary-color);
+}
+
+/* ---------- Árbol de oficinas ---------- */
+.oficina-arbol {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+.oficina-arbol .oficina-arbol {
+    padding-left: 1.75rem;
+    border-left: 2px dashed var(--bs-border-color);
+    margin-left: 0.6rem;
+}
+
+.oficina-nodo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    margin: 0.35rem 0;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.5rem;
+    background: var(--bs-body-bg);
+}
+
+.oficina-nodo:hover {
+    border-color: var(--sigpat-primario);
+}
+
+.oficina-nodo.inactiva {
+    opacity: 0.6;
+    background: var(--bs-tertiary-bg);
+}
+
+/* ---------- Slots de licencias ---------- */
+.slot-card {
+    border-width: 2px;
+}
+
+.slot-libre {
+    border-color: var(--bs-success-border-subtle);
+    background: var(--bs-success-bg-subtle);
+}
+
+.slot-libre .card-header {
+    background: transparent;
+    border-bottom-color: var(--bs-success-border-subtle);
+}
+
+.slot-ocupado {
+    border-color: var(--bs-primary-border-subtle);
+    background: var(--bs-primary-bg-subtle);
+}
+
+.slot-ocupado .card-header {
+    background: transparent;
+    border-bottom-color: var(--bs-primary-border-subtle);
+}
+
+/* ---------- Dashboard ---------- */
+.kpi-card {
+    transition: box-shadow 0.15s ease;
+}
+
+.kpi-card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(var(--caen-guinda-rgb), 0.12) !important;
+}
+
+.kpi-titulo {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--bs-secondary-color);
+}
+
+.kpi-icono {
+    width: 36px;
+    height: 36px;
+    border-radius: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kpi-valor {
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0.25rem 0;
+}
+
+.kpi-unidad {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--bs-secondary-color);
+}
+
+.grafico-dona {
+    position: relative;
+    height: 200px;
+}
+
+.grafico-barras {
+    position: relative;
+    height: 260px;
+}
+
+.leyenda li {
+    padding: 2px 0;
+}
+
+.leyenda-marca {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    margin-right: 6px;
+    vertical-align: baseline;
+}
+
+.leyenda-marca.serie-1 {
+    background: var(--grafico-serie-1);
+}
+
+.leyenda-marca.serie-2 {
+    background: var(--grafico-serie-2);
+}
+
+.leyenda-marca.serie-3 {
+    background: var(--grafico-serie-3);
+}
+
+.evidencia-miniatura {
+    height: 150px;
+    object-fit: cover;
+    background: var(--bs-tertiary-bg);
+}
+
+.min-w-0 {
+    min-width: 0;
+}
+
+@media (max-width: 575.98px) {
+    .app-content {
+        padding: 1rem;
+    }
+}

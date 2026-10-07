@@ -1,0 +1,18 @@
+# Protección cuando el proyecto vive dentro de htdocs (sin VirtualHost):
+# todo lo que no esté bajo public/ se reescribe hacia public/, así app/, storage/,
+# database/, vendor/ y .env nunca se sirven directamente.
+Options -Indexes
+
+<FilesMatch "^(\.env.*|composer\.(json|lock)|CLAUDE\.md)$">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^$ public/ [L]
+    RewriteRule ^((?!public/).*)$ public/$1 [L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    Require all denied
+</IfModule>

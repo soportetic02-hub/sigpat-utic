@@ -1,0 +1,7 @@
+/vendor/
+.env
+/storage/evidencias/*
+/storage/reports/*
+/storage/logs/*
+!/storage/**/.gitkeep
+/database/importar_equipos.sql
